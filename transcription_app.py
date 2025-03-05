@@ -10,6 +10,7 @@ from tkinter import filedialog
 # Initialize Whisper model with language support
 @st.cache_resource
 def load_model():
+    # Use smaller model for deployment
     return whisper.load_model("base")
 
 model = load_model()

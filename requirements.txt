@@ -2,3 +2,5 @@ streamlit
 openai-whisper
 python-docx
 audio-recorder-streamlit
+torch
+torchaudio
