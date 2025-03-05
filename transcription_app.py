@@ -5,7 +5,6 @@ import tempfile
 from datetime import datetime
 from docx import Document
 from audio_recorder_streamlit import audio_recorder
-import tkinter as tk
 from tkinter import filedialog
 
 # Initialize Whisper model with language support
@@ -46,12 +45,18 @@ def create_transcription_doc(transcriptions, output_path):
 
 # Function to select directory
 def select_directory():
-    root = tk.Tk()
-    root.withdraw()  # Hide the root window
-    root.wm_attributes('-topmost', 1)  # Keep the dialog on top
-    folder = filedialog.askdirectory()
-    return folder
-
+    dir_path = st.file_uploader(
+        "Select a directory",
+        type=None,  # Allow any type
+        accept_multiple_files=True,
+        key="dir_selector",
+        help="Select a directory to transcribe all audio files within it"
+    )
+    
+    if dir_path:
+        # Return the first file's directory (since we're selecting a folder)
+        return os.path.dirname(dir_path[0].name)
+    return None
 # Main app function
 def main():
     st.title("🎙️ Audio Transcription System")
